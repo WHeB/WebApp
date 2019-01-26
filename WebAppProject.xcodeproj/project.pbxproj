@@ -175,6 +175,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		848341E321FC62C900382BE0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		84F9EFDB21D2280600795485 /* WebAppProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WebAppProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84F9EFDE21D2280600795485 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84F9EFE521D2280600795485 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -1547,6 +1548,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				84F9EFE821D2280600795485 /* Base */,
+				848341E321FC62C900382BE0 /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -1558,6 +1560,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1619,6 +1622,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1690,7 +1694,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/WebAppProject/Meiqia-SDK-files/MQChatViewController/Vendors/MLAudioRecorder/amr_en_de/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.superchain.zhanbushi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.superchain.wanlian;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/WebAppProject-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
@@ -1718,7 +1722,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/WebAppProject/Meiqia-SDK-files/MQChatViewController/Vendors/MLAudioRecorder/amr_en_de/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.superchain.zhanbushi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.superchain.wanlian;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/WebAppProject-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;

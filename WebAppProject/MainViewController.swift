@@ -12,8 +12,8 @@ import JavaScriptCore
 
 let ScW = UIScreen.main.bounds.size.width
 let ScH = UIScreen.main.bounds.size.height
-let headColor = UIColor.init(hex: "4E1073")
-let bottomColor = UIColor.white
+let headColor = UIColor.init(hex: "e75046")
+let bottomColor = UIColor.init(hex: "f0f0f0")
 
 class MainViewController: UIViewController, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler {
     private var webView: WKWebView!
@@ -46,6 +46,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, WKUIDelegate, 
         config.userContentController = WKUserContentController()
         config.userContentController.add(self, name: "photograph")
         config.userContentController.add(self, name: "iOSServerAction")
+        config.userContentController.add(self, name: "iOSSavePhoto")
         
         let webH = AppInfo.isHasSafeArea ? ScH - 44 - 34 : ScH - 20
         webView = WKWebView.init(frame: CGRect.init(x: 0, y: AppInfo.statusBarHeight, width: ScW, height: webH), configuration:config)
@@ -53,7 +54,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, WKUIDelegate, 
         webView.navigationDelegate = self
         webView.uiDelegate = self
         self.view.addSubview(webView)
-        let urlString = "http://m.diniver.com/dist"
+        let urlString = "http://www.wanlian333.com/mobile"
         webView.load(URLRequest.init(url: URL.init(string: urlString)!))
         
         // 监听支持KVO的属性
@@ -105,23 +106,25 @@ class MainViewController: UIViewController, WKNavigationDelegate, WKUIDelegate, 
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if message.name == "photograph" { // 扫描
-            self.qrCodeAction()
+            let vc = ScanViewController();
+            vc.scanResultDelegate = self
+            let nav = UINavigationController.init(rootViewController: vc)
+            self.present(nav, animated: true, completion: nil)
         }
         if message.name == "iOSServerAction" { // 客服
-            self.connectMeiqiaServer()
+            let chatVC = MQChatViewManager.init()
+            chatVC.pushMQChatViewController(in: self)
+        }
+        if message.name == "iOSSavePhoto" { // 保存图片
+            guard let data = try? Data.init(contentsOf: URL.init(string: (message.body as! String))!)
+                else { return }
+            let img = UIImage.init(data: data)
+            UIImageWriteToSavedPhotosAlbum(img!, self, #selector(image(image:didFinishSavingWithError:contextInfo:)), nil)
         }
     }
 }
 
 extension MainViewController: LBXScanViewControllerDelegate {
-    /// 扫一扫
-    @objc func qrCodeAction() {
-        let vc = ScanViewController();
-        vc.scanResultDelegate = self
-        let nav = UINavigationController.init(rootViewController: vc)
-        self.present(nav, animated: true, completion: nil)
-    }
-    
     /// 扫描完成
     func scanFinished(scanResult: LBXScanResult, error: String?) {
         self.dismiss(animated: true, completion: nil)
@@ -129,9 +132,11 @@ extension MainViewController: LBXScanViewControllerDelegate {
         self.webView.evaluateJavaScript(jsString, completionHandler: nil)
     }
     
-    /// 客服 美恰
-    private func connectMeiqiaServer() {
-        let chatVC = MQChatViewManager.init()
-        chatVC.pushMQChatViewController(in: self)
+    /// 保存图片完成
+    @objc func image(image:UIImage,didFinishSavingWithError error:NSError?,contextInfo:AnyObject) {
+        let result = error == nil ? true : false
+        let jsString = "iOSSavePhotoCallback('\(result)')"
+        self.webView.evaluateJavaScript(jsString, completionHandler: nil)
     }
 }
+
